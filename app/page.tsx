@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Mail, MapPin, Phone, ExternalLink, Calendar, Code, Smartphone, Database, Cpu, Github, Linkedin, Download } from "lucide-react";
+import { Mail, MapPin, Phone, Calendar, Code, Smartphone, Database, Cpu, Github, Linkedin, Download } from "lucide-react";
 
 const Index = () => {
   const technicalSkills = [
@@ -17,7 +17,21 @@ const Index = () => {
     "Android Studio", "Git", "Jira", "GitHub", "GitLab", "Figma", "Adobe XD", "Zeplin"
   ];
 
-  const experiences = [
+  type Project = {
+    name: string;
+    description: string;
+    technologies?: string[];
+  };
+  type Experience = {
+    title: string;
+    company: string;
+    period: string;
+    location: string;
+    description: string;
+    projects: Project[];
+  };
+
+  const experiences: Experience[] = [
     {
       title: "Android Developer",
       company: "Delivery-Express",
@@ -79,7 +93,8 @@ const Index = () => {
       company: "Onward E-Services Ltd",
       period: "January 2016 – August 2018",
       location: "Kerala, India",
-      description: "Provided technical support for the software utilized in FIR registration and various station duties for Kerala Police."
+      description: "Provided technical support for the software utilized in FIR registration and various station duties for Kerala Police.",
+      projects: []
     }
   ];
 
@@ -129,21 +144,27 @@ const Index = () => {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                <Button className="gap-2">
+                <Button variant="outline" asChild className="gap-2 cursor-pointer">
                   <a href="mailto:dineeshofficial@gmail.com">
                     <Mail className="h-4 w-4" />
+                    Contact Me
                   </a>
-                  Contact Me
                 </Button>
-                <Button variant="outline" className="gap-2">
-                  <a href="/Android_Developer_DineeshPU.pdf" download>
+
+                <Button variant="outline" asChild className="gap-2 cursor-pointer">
+                  <a
+                    href="https://drive.google.com/file/d/1-QBqmSzNQHQmJBsAmrGKzBCUcoiF0dEO/view?usp=drivesdk"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
                     <Download className="h-4 w-4" />
+                    Download CV
                   </a>
-                  Download CV
                 </Button>
                 <Button variant="outline" size="icon">
                   <a
-                    href="https://github.com/yourusername"
+                    href="https://github.com/DineeshPadippurakkal"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -152,7 +173,7 @@ const Index = () => {
                 </Button>
                 <Button variant="outline" size="icon">
                   <a
-                    href="https://www.linkedin.com/in/yourusername"
+                    href="https://www.linkedin.com/in/dineeshpu"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -278,7 +299,7 @@ const Index = () => {
                             <div key={projectIndex} className="border rounded-lg p-4 space-y-2">
                               <h5 className="font-medium">{project.name}</h5>
                               <p className="text-sm text-muted-foreground">{project.description}</p>
-                              {project.technologies && (
+                              {project.technologies && project.technologies.length > 0 && ( // Type guard
                                 <div className="flex flex-wrap gap-1">
                                   {project.technologies.map((tech, techIndex) => (
                                     <Badge key={techIndex} variant="outline" className="text-xs">
